@@ -330,6 +330,21 @@ int8_t circStoreClear(CircStoreHandler_t *handler)
     return 0;
 }
 
+
+uint32_t circStoreGetLastLogIndex(CircStoreHandler_t *handler)
+{
+    // Get the last block address
+    uint32_t address;
+    uint32_t logIndex;
+    int ret = 0;
+    ret = circStoreGetLastBlockAddress(handler, &address, &logIndex);
+    if (ret != 0 || address == 0)
+    {
+        CS_PRINT("no valid block found\n");
+        return 0;
+    }
+    return logIndex;
+}
 #if 0
 void circStoreTest(CircStoreHandler_t *handler)
 {

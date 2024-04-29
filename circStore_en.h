@@ -79,5 +79,6 @@ int8_t circStoreReadByLogIndex(CircStoreHandler_t *handler, uint32_t logIndex, u
 uint16_t circStoreGetLogCount(CircStoreHandler_t *handler);
 // Clear all records within the range, returns 0 on success, otherwise failure
 int8_t circStoreClear(CircStoreHandler_t *handler);
-
+// Get the last log index
+uint32_t circStoreGetLastLogIndex(CircStoreHandler_t *handler);
 #endif

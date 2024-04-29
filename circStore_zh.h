@@ -78,5 +78,7 @@ int8_t circStoreReadByLogIndex(CircStoreHandler_t *handler, uint32_t logIndex, u
 uint16_t circStoreGetLogCount(CircStoreHandler_t *handler);
 // 清除所有范围内的记录,返回值为0时表示清除成功,否则失败
 int8_t circStoreClear(CircStoreHandler_t *handler);
+// 获取最后一条记录的索引
+uint32_t circStoreGetLastLogIndex(CircStoreHandler_t *handler); 
 
 #endif
