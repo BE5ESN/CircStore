@@ -61,8 +61,8 @@ void circStoreInit(CircStoreHandler_t *handler, uint32_t flashStart, uint32_t fl
 // Add a test result, the size of a single block should not exceed logBlockSize
 // data: Data
 // len: Data length, maximum length is SINGLE_STORE_SIZE-8
-// Returns 0 on success, otherwise failure
-int8_t circStoreAdd(CircStoreHandler_t *handler, uint8_t *data, uint16_t len);
+// Returns 0 failed,other:the logIndex of the record
+uint32_t circStoreAdd(CircStoreHandler_t *handler, uint8_t *data, uint16_t len);
 // Read the latest record, returns 0 on success, otherwise failure
 // data: Data
 // len: Data length

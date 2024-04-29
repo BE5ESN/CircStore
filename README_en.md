@@ -68,6 +68,7 @@ Read the comments in the source code to understand the API of CircStore.
 - 4. The reliability of the stored data is verified by the user, only responsible for storage, not for verification. The integrity of the data is recommended to be verified by the user after reading.
 - 5. It is recommended to have at least 2 blocks.
 - 6. Please modify the flash read and write functions according to the actual situation. Ensure atomic operations to prevent interruption during the read and write process.
+- 7. Notice if you use as configuration storage, please ensure the data is store in one SINGLE_STORE_SIZE, and the data is not exceed the SINGLE_STORE_SIZE-8,you should read the lastest as current config,DO NOT use history data as config, it may erase by new data.
 
 
 ### Follow me [bilibili](https://space.bilibili.com/1922147080)

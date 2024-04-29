@@ -60,8 +60,8 @@ void circStoreInit(CircStoreHandler_t *handler, uint32_t flashStart, uint32_t fl
 // 添加测试结果，单块数据大小不可超过logBlockSize
 // data:数据
 // len:数据长度,长度最长为SINGLE_STORE_SIZE-8
-// 返回值为0时表示添加成功,否则失败
-int8_t circStoreAdd(CircStoreHandler_t *handler, uint8_t *data, uint16_t len);
+// 返回值为0时表示添加失败，其他:记录的logIndex
+uint32_t circStoreAdd(CircStoreHandler_t *handler, uint8_t *data, uint16_t len);
 // 读取最新的记录,返回值为0时表示读取成功,否则失败
 // data:数据
 // len:数据长度

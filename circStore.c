@@ -144,10 +144,11 @@ void circStoreInit(CircStoreHandler_t *handler, uint32_t flashStart, uint32_t fl
 }
 
 // Add test results, return result, the size of a single block of data cannot exceed logBlockSize
-int8_t circStoreAdd(CircStoreHandler_t *handler, uint8_t *data, uint16_t len)
+uint32_t circStoreAdd(CircStoreHandler_t *handler, uint8_t *data, uint16_t len)
 {
     // Write data, index starts from 1
     // Get the last block address
+    uint32_t retLogIndex = 0;
     int8_t ret = 0;
     uint32_t address = 0;
     uint32_t logIndex = 0;
@@ -159,12 +160,14 @@ int8_t circStoreAdd(CircStoreHandler_t *handler, uint8_t *data, uint16_t len)
         // No data written
         address = handler->flashStart;
         logIndex = 1;
+        retLogIndex = 1;
     }
     else
     {
         // Data already written
         address += SINGLE_STORE_SIZE;
         logIndex++;
+        retLogIndex = logIndex;
     }
     // Check if a page flip is required: when flipping, erasure is required
     if (((address - handler->flashStart) % FLASH_ERASE_SIZE) == 0)
@@ -192,17 +195,17 @@ int8_t circStoreAdd(CircStoreHandler_t *handler, uint8_t *data, uint16_t len)
     if (len > SINGLE_STORE_SIZE)
     {
         CS_PRINT("data len is too long\n");
-        return -1;
+        return 0;
     }
 
     if (address < handler->flashStart || address > (handler->flashStart + handler->flashBlocks * FLASH_ERASE_SIZE))
     {
         CS_PRINT("address is out of range [0x%lx]\n", address);
-        return -1;
+        return 0;
     }
 
     handler->csi->write(address, (uint8_t *)&block, sizeof(CircStoreBlock_t));
-    return 0;
+    return retLogIndex;
 }
 int8_t circStoreReadByLogIndex(CircStoreHandler_t *handler, uint32_t logIndex, uint8_t *data, uint16_t *len)
 {
